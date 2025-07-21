@@ -71,7 +71,7 @@ def testing_config(environment):
 
 def get_config_by_environment(environment: dict):
     log.info("Checking app env vars")
-    required_keys = ['FLASK_APP', 'ENVIRONMENT', 'SECRET_KEY', 'AWS_ACCESS_KEY_ID', 'AWS_SECRET_ACCESS_KEY', 'MERCADO_PAGO_URL']
+    required_keys = ['FLASK_APP', 'ENVIRONMENT', 'SECRET_KEY', 'MERCADO_PAGO_URL', 'AWS_REGION']
 
     log.info("Checking required env vars")
     for key in required_keys:
