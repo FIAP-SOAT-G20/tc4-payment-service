@@ -5,7 +5,7 @@ import json
 from engine.app.external.flask.routes import api
 from engine.app.core.controllers.payment.checkoutController import CheckoutController
 from engine.app.core.controllers.payment.viewerController import PaymentViewerController
-from engine.app.external.marshmallow.validator import validate_request
+from engine.app.external.marshmallow.validator import ValidationData
 from engine.app.external.marshmallow.schemas.callbackSchema import CallbackSchema
 
 log = logging.getLogger("payment." + __name__)
@@ -39,8 +39,8 @@ def get_payment(payment_id):
 
 
 @api.route('/payments/callback', methods=['POST'])
-@validate_request(CallbackSchema)
 def payment_callback():
     data = json.loads(request.data.decode())
+    ValidationData(CallbackSchema, data)
     payment = checkout_use_case.process_callback(data)
     return jsonify({"status": "success", "data": payment}), 200

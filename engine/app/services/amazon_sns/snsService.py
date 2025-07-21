@@ -1,5 +1,4 @@
 import boto3
-from moto import mock_aws
 import logging
 from os import environ as environment
 
@@ -8,7 +7,6 @@ log = logging.getLogger("payment." + __name__)
 
 class SNSService:
 
-    @mock_aws
     def __init__(self):
         try:
             self.client = boto3.client(
@@ -22,7 +20,6 @@ class SNSService:
             log.exception(f"Error creating SNS Client: {e}")
             raise
 
-    @mock_aws
     def get_or_create_topic(self, topic_name):
         try:
             response = self.client.create_topic(Name=topic_name)
@@ -33,7 +30,6 @@ class SNSService:
             log.exception(f"Error creating/retrieving SNS topic '{topic_name}': {e}")
             raise
 
-    @mock_aws
     def publish_notification(self, topic_arn, message, subject):
         try:
             response = self.client.publish(
@@ -48,7 +44,6 @@ class SNSService:
             log.exception(f"Error publishing message on topic {topic_arn}: {e}")
             raise
 
-    @mock_aws
     def send_notification(self, topic_name, message, subject):
         try:
             log.info(f"Initiating notification sender to topic '{topic_name}'.")
