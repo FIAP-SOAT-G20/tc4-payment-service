@@ -9,12 +9,19 @@ class SNSService:
 
     def __init__(self):
         try:
-            self.client = boto3.client(
-                'sns',
-                region_name=environment.get('AWS_REGION', 'us-east-1'),
-                aws_access_key_id=environment.get('AWS_ACCESS_KEY_ID'),
-                aws_secret_access_key=environment.get('AWS_SECRET_ACCESS_KEY')
-            )
+            env = environment.get('ENVIRONMENT', 'development')
+            region = environment.get('AWS_REGION', 'us-east-1')
+
+            if env == 'production':
+                self.client = boto3.client('sns', region_name=region)
+            else:
+                self.client = boto3.client(
+                    'sns',
+                    region_name=region,
+                    aws_access_key_id=environment.get('AWS_ACCESS_KEY_ID'),
+                    aws_secret_access_key=environment.get('AWS_SECRET_ACCESS_KEY')
+                )
+
             log.info("SNS client created successfully.")
         except Exception as e:
             log.exception(f"Error creating SNS Client: {e}")

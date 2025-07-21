@@ -20,10 +20,15 @@ swagger_conf = {
 def get_dynamodb_settings(environment):
     settings = {
         'region': environment.get('AWS_REGION', 'us-east-1'),
-        'host': environment.get('DYNAMODB_ENDPOINT', 'http://192.168.0.16:8000'),
-        'aws_access_key_id': environment.get('AWS_ACCESS_KEY_ID'),
-        'aws_secret_access_key': environment.get('AWS_SECRET_ACCESS_KEY')
     }
+
+    if environment.get('ENVIRONMENT') != 'production':
+        settings = {
+            'region': environment.get('AWS_REGION', 'us-east-1'),
+            'host': environment.get('DYNAMODB_ENDPOINT', 'http://192.168.0.16:8000'),
+            'aws_access_key_id': environment.get('AWS_ACCESS_KEY_ID'),
+            'aws_secret_access_key': environment.get('AWS_SECRET_ACCESS_KEY')
+        }
     return settings
 
 
