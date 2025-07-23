@@ -53,13 +53,14 @@ class CheckoutUseCase:
             return False
 
         try:
-            self.notification_service.send_notification("payment-approved", "CONFIRMED", json.dumps({"order_id": payment.order_id}))
+            self.notification_service.send_notification("payment-approved",
+                                                        json.dumps({"order_id": payment.order_id}), "CONFIRMED")
         except Exception as e:
             log.error(f"Error sending notification: {e}")
             log.info("Trying to send notification again...")
             try:
-                self.notification_service.send_notification("payment-approved", "CONFIRMED",
-                                                            f"Order #{data['resource']}")
+                self.notification_service.send_notification("payment-approved",
+                                                            json.dumps({"order_id": payment.order_id}), "CONFIRMED")
             except Exception as e:
                 log.error(f"Error sending second notification: {e}")
 

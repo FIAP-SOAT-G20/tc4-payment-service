@@ -31,15 +31,19 @@ def create_app():
     log.info("Registering routes")
     app.register_blueprint(api)
 
-    log.info("Configuring DynamoDB on model")
-    BaseModel.Meta.host = app.config['DYNAMODB_SETTINGS']['host']
-    BaseModel.Meta.region = app.config['DYNAMODB_SETTINGS']['region']
-    if not PaymentModel.exists():
-        PaymentModel.create_table(
-            read_capacity_units=1,
-            write_capacity_units=1,
-            wait=True
-        )
+    if os.environ.get('ENVIRONMENT') != 'testing':
+        log.info("Configuring DynamoDB on model")
+        try:
+            BaseModel.Meta.host = app.config['DYNAMODB_SETTINGS']['host']
+        except KeyError:
+            log.info("skipping dynamodb host setting")
+        BaseModel.Meta.region = app.config['DYNAMODB_SETTINGS']['region']
+        if not PaymentModel.exists():
+            PaymentModel.create_table(
+                read_capacity_units=1,
+                write_capacity_units=1,
+                wait=True
+            )
 
     log.info(f"{NAME}:{VERSION} Server Started Successfully at {STARTED_AT}")
 

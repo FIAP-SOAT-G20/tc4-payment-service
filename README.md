@@ -4,7 +4,7 @@
     <img src="https://img.shields.io/badge/plataform-docker-orange">
     <img src="https://img.shields.io/badge/version-1.0.0-orange">
     <img src="https://img.shields.io/badge/python-3.12.x-orange">
-    <img src="https://img.shields.io/badge/coverage-0%25-orange">
+    <img src="https://img.shields.io/badge/coverage-86%25-orange">
 </p>
 
 ## Introduction
@@ -89,7 +89,46 @@ These modules are **adapters**, translating external HTTP or JSON input into som
 - `amazon_sns/`: Handles integration with AWS SNS to publish payment-related events.
 - `mercado_pago/`: Integration layer for Mercado Pago (mocked in this case). Contains logic to communicate with the external payment provider.
 
-These services are injected into use cases through interfaces, so the business logic is not tightly coupled to third-party SDKs.
+These services are injected into use cases, so the business logic is not tightly coupled to third-party SDKs.
+
+```
+\TC4-PAYMENT-SERVICE\ENGINE
+├───app
+│   ├───configs
+│   ├───core
+│   │   ├───controllers
+│   │   │   ├───payment
+│   │   ├───entities
+│   │   ├───presenters
+│   │   │   ├───payment
+│   │   ├───usecases
+│   │   │   ├───payment
+│   ├───external
+│   │   ├───flask
+│   │   │   ├───routes
+│   │   │   │   ├───payment
+│   │   ├───marshmallow
+│   │   │   ├───schemas
+│   ├───repositories
+│   │   ├───models
+│   ├───services
+│   │   ├───amazon_sns
+│   │   ├───mercado_pago
+│   ├───static
+├───logs
+├───tests
+│   ├───bdd
+│   │   ├───features
+│   │   ├───steps
+│   ├───unit
+│   │   ├───test_core
+│   │   │   ├───test_controllers
+│   │   │   ├───test_entities
+│   │   │   ├───test_presenters
+│   │   │   ├───test_usecases
+│   │   ├───test_repositories
+│   │   ├───test_services
+```
 
 
 ## How to work on the application
@@ -132,7 +171,6 @@ It should be like this:
 ![dir structure](docs/directory_structure.png)
 
 
-
 ### Run configuration
 
 - working dir: **engine**
@@ -142,21 +180,9 @@ It should be like this:
 ![server configs](docs/server-configs.png)
 
 
+### Tests configuration
 
-[//]: # (### Tests configuration)
+- working dir: **tc4-payment-service**
+- script path: **tc4-payment-service/engine/tests**
 
-[//]: # ()
-[//]: # (- working dir: **engine**)
-
-[//]: # (- script path: **engine/tests**)
-
-[//]: # ()
-[//]: # (![tests configs]&#40;docs/tests-configs.png&#41;)
-
-[//]: # ()
-[//]: # ()
-[//]: # ()
-[//]: # ()
-[//]: # ()
-[//]: # (docker run --rm -d -p 3001:3001 -v "$&#40;pwd&#41;/definition.json:/data/definition.json" mockoon/cli:9.2.0 --data /data/definition.json --port 3001)
-
+![tests configs](docs/tests-configs.png)

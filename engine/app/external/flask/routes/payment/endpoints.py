@@ -14,12 +14,6 @@ checkout_use_case = CheckoutController()
 viewer_use_case = PaymentViewerController()
 
 
-@api.route('/payments', methods=['GET'])
-def get_payments():
-    payments = viewer_use_case.get_all_payments(limit=request.args.get('limit', 10))
-    return jsonify(payments)
-
-
 @api.route('/payments/<string:order_id>/checkout', methods=['POST'])
 def checkout(order_id):
     additional_data = request.json

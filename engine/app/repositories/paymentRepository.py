@@ -74,23 +74,3 @@ class PaymentRepository:
         except Exception as e:
             log.error(f"Error updating payment status: {e}")
             return None
-
-
-    def get_all_payments(self, payment_entity, limit=10):
-
-        payments = PaymentModel.scan(limit=limit)
-
-        payments_list = []
-        for payment in payments:
-            payments_list.append(payment_entity(
-            id=payment.id,
-            order_id=payment.order_id,
-            additional_data=payment.additional_data,
-            qr_data=payment.qr_data,
-            created_at=payment.created_at,
-            updated_at=payment.updated_at,
-            title=payment.title,
-            status=payment.status,
-        ))
-
-        return payments_list

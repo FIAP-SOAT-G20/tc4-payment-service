@@ -32,7 +32,6 @@ def get_dynamodb_settings(environment):
     return settings
 
 
-
 def production_config(environment):
     return type('ProductionConfig', (object,), {
         "DEBUG": False,
@@ -61,7 +60,7 @@ def testing_config(environment):
         "TESTING": True,
         "DYNAMODB_SETTINGS": {
             'region': 'us-east-1',
-            'host': 'http://192.168.0.16:8000'  # Usando o DynamoDB Local no modo de teste
+            'host': environment.get('DYNAMODB_ENDPOINT', 'http://192.168.0.16:8000')
         },
         "SECRET_KEY": environment['SECRET_KEY'],
         "PERMANENT_SESSION_LIFETIME": timedelta(days=int(environment['PERMANENT_SESSION_LIFETIME'])),

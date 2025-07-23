@@ -1,22 +1,6 @@
 schemes:
   - http
 paths:
-  /payments:
-    get:
-      tags:
-        - Payments
-      summary: Get all payments.
-      parameters:
-        - name: limit
-          in: query
-          type: integer
-          required: true
-          description: Limit of records to retrieve.
-          example: 10
-      responses:
-        200:
-          schema:
-            type: object
   /payments/{payment_id}:
     get:
       tags:
@@ -97,4 +81,3 @@ paths:
             type: object
             example:
               error: "Order not found"
-
