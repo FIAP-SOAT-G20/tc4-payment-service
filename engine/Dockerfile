@@ -2,9 +2,6 @@ FROM python:3.12.0
 
 WORKDIR /
 
-# Install SO Dependencies
-RUN apt-get update ; apt-get upgrade; apt-get install -y libsasl2-dev python-dev libldap2-dev unixodbc-dev unixodbc openssl alien libaio1
-
 # Default configuration
 ENV FLASK_APP=app
 
@@ -29,5 +26,5 @@ RUN python -Bc "import pathlib; [p.rmdir() for p in pathlib.Path('.').rglob('__p
 
 # Entrypoint for application start
 RUN chmod +x /engine/entrypoint.sh
-WORKDIR /engine
-ENTRYPOINT ["/engine/entrypoint.sh"]
+RUN mv /engine/entrypoint.sh /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]
