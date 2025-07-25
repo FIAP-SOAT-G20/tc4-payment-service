@@ -1,0 +1,83 @@
+schemes:
+  - http
+paths:
+  /payments/{payment_id}:
+    get:
+      tags:
+        - Payments
+      summary: Get payment by ID.
+      parameters:
+        - name: payment_id
+          in: path
+          type: string
+          required: true
+          description: Payment or Order ID.
+      responses:
+        200:
+          schema:
+            type: object
+
+  /payments/{order_id}/checkout:
+    post:
+      tags:
+        - Checkout
+      summary: Realiza o checkout de um pedido.
+      parameters:
+        - name: order_id
+          in: path
+          type: string
+          required: true
+          description: ID do pedido para realizar o checkout.
+        - name: additional_data
+          in: body
+          required: true
+          schema:
+            type: object
+            description: Dados adicionais para o pagamento. Pode conter qualquer estrutura.
+            example:
+              customer_note: "Favor entregar no período da manhã."
+              discount_code: "PROMO10"
+      responses:
+        201:
+          description: Pagamento criado com sucesso.
+          schema:
+            type: object
+            example:
+              payment_id: "12345"
+              status: "created"
+        400:
+          description: Erro de validação ou processamento.
+          schema:
+            type: object
+            example:
+              error: "Order not found"
+
+  /payments/callback:
+    post:
+      tags:
+        - Checkout
+      summary: Atualiza o status do pedido.
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            type: object
+            description: Order ID.
+            example:
+              resource: "123456"
+              topic: "Mercado Pago - 123456"
+      responses:
+        201:
+          description: Pagamento criado com sucesso.
+          schema:
+            type: object
+            example:
+              payment_id: "12345"
+              status: "created"
+        400:
+          description: Erro de validação ou processamento.
+          schema:
+            type: object
+            example:
+              error: "Order not found"

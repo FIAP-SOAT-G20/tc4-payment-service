@@ -1,0 +1,6 @@
+[run]
+source = engine/app
+
+[report]
+show_missing = True
+skip_covered = True
