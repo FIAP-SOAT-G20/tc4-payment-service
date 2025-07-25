@@ -4,23 +4,36 @@ on:
   push:
     branches: [ "main" ]
 
+permissions:
+  contents: read
+  packages: write
+
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Build and Deploy Docker image
-      run: |
-        
-        export NAME=$(cat engine/info.yaml | grep app-name | tr -d '[:space:]' | awk -F: '{print $2}')
-        export VERSION=$(cat engine/info.yaml | grep app-version | tr -d '[:space:]' | awk -F: '{print $2}')
-        
-        docker build -t ghcr.io/$NAME engine/
-        
-        docker tag ghcr.io/$NAME ghcr.io/$NAME:$VERSION
-        
-        docker push ghcr.io/$NAME:$VERSION
-        docker push ghcr.io/$NAME:latest
+      - uses: actions/checkout@v3
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and Push Docker Image to GHCR
+        run: |
+          NAME=$(cat engine/info.yaml | grep app-name | tr -d '[:space:]' | awk -F: '{print $2}')
+          VERSION=$(cat engine/info.yaml | grep app-version | tr -d '[:space:]' | awk -F: '{print $2}')
+          
+          OWNER=${{ github.repository_owner }}
+          IMAGE=ghcr.io/$OWNER/$NAME
+
+          echo "Building $IMAGE:$VERSION"
+
+          docker build -t $IMAGE engine/
+          docker tag $IMAGE $IMAGE:$VERSION
+
+          docker push $IMAGE:$VERSION
+          docker push $IMAGE:latest
