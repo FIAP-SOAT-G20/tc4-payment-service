@@ -27,7 +27,7 @@ jobs:
           NAME=$(cat engine/info.yaml | grep app-name | tr -d '[:space:]' | awk -F: '{print $2}')
           VERSION=$(cat engine/info.yaml | grep app-version | tr -d '[:space:]' | awk -F: '{print $2}')
           
-          OWNER=${{ github.repository_owner }}
+          OWNER=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')
           IMAGE=ghcr.io/$OWNER/$NAME
 
           echo "Building $IMAGE:$VERSION"
