@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
 
-# shellcheck disable=SC2164
-cd /engine
-
 if [[ -z "${HOST}" ]]; then
   export HOST=0.0.0.0
 fi
@@ -16,7 +13,7 @@ fi
 
 if [ "$ENVIRONMENT" == "production" ]; then
     echo "Starting production mode!"
-    waitress-serve --port=$PORT "app"
+    waitress-serve --host=$HOST --port=$PORT engine:app
 else
     echo "Starting development mode!"
     flask run -p $PORT -h $HOST
