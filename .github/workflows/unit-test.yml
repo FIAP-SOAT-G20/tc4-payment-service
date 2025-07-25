@@ -35,6 +35,6 @@ jobs:
           pip install -r engine/requirements.txt
 
       - name: Run unit tests
-        working-directory: ./engine
+        working-directory: .
         run: |
-          python -m unittest discover -s tests -t .
+          python -m unittest discover -s engine/tests -t .
