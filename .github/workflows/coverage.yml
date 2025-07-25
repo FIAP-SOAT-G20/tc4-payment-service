@@ -49,4 +49,5 @@ jobs:
       - name: Comment coverage on PR
         uses: py-cov-action/python-coverage-comment-action@v3
         with:
-          coverage-file: coverage.xml
+          GITHUB_TOKEN: ${{ secrets.COVERAGE_COMMENT_TOKEN }}
+          COVERAGE_PATH: coverage.xml
