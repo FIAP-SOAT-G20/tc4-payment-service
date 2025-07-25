@@ -46,6 +46,7 @@ jobs:
                  --cov-config=.coveragerc \
                  --cov-report=term \
                  --cov-report=xml \
+                 --cov-report=json \
                  --cov-fail-under=80 \
                  engine/tests
 
@@ -53,4 +54,3 @@ jobs:
         uses: py-cov-action/python-coverage-comment-action@v3
         with:
           GITHUB_TOKEN: ${{ secrets.COVERAGE_COMMENT_TOKEN }}
-          COVERAGE_PATH: coverage.xml
