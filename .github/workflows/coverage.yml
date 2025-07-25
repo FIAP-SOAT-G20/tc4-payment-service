@@ -2,15 +2,18 @@ name: Python Test with Coverage Comment
 
 on:
   pull_request:
-    branches: [ "main" ]
+  push:
+    branches:
+      - "main"
 
-permissions:
-  contents: write
-  pull-requests: write
 
 jobs:
   test:
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+      pull-requests: write
 
     env:
       AWS_ACCESS_KEY_ID: 123456
@@ -23,7 +26,7 @@ jobs:
       SECRET_KEY: abcdeABCDE123456
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Set up Python 3.12
         uses: actions/setup-python@v4
