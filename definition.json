@@ -1,0 +1,149 @@
+{
+    "uuid": "afbb60b9-1127-42bf-9789-cc47d0c697e5",
+    "lastMigration": 33,
+    "name": "MercadoPago",
+    "endpointPrefix": "mercadopago",
+    "latency": 0,
+    "port": 3001,
+    "hostname": "",
+    "folders": [],
+    "routes": [
+        {
+            "uuid": "80fb88ad-7c55-4ff1-878d-1d93de2800c5",
+            "type": "http",
+            "documentation": "Simulates the processing of a new payment and after a delay callback a configurable postback url.",
+            "method": "post",
+            "endpoint": "instore/orders/qr",
+            "responses": [
+                {
+                    "uuid": "0cca213b-e2e9-47b3-8e1d-2b40a63f4114",
+                    "body": "{\n  \"in_store_order_id\": \"{{body '$.external_reference'}}\",\n  \"qr_data\": \"{{faker 'string.numeric' 20}}com.mercadolibre0201306{{faker 'string.uuid'}}35150120008326594305204970053030325802AR5910Test Store6004CABA6304DEE5\"\n}",
+                    "latency": 0,
+                    "statusCode": 200,
+                    "label": "",
+                    "headers": [],
+                    "bodyType": "INLINE",
+                    "filePath": "",
+                    "databucketID": "",
+                    "sendFileAsBody": false,
+                    "rules": [],
+                    "rulesOperator": "OR",
+                    "disableTemplating": false,
+                    "fallbackTo404": false,
+                    "default": true,
+                    "crudKey": "id",
+                    "callbacks": [
+                        {
+                            "uuid": "3b2f003c-5c7b-40db-bf21-6e665fcfb094",
+                            "latency": 1000
+                        }
+                    ]
+                }
+            ],
+            "responseMode": null,
+            "streamingMode": null,
+            "streamingInterval": 0
+        },
+        {
+            "uuid": "cd6235d6-ffbe-4f8d-89e8-87fc372808fc",
+            "type": "http",
+            "documentation": "HealthCheck endpoint for monitoring the mock server’s status.",
+            "method": "get",
+            "endpoint": "healthCheck",
+            "responses": [
+                {
+                    "uuid": "640ca563-ae9e-4f03-960f-d39038e8dbc0",
+                    "body": "",
+                    "latency": 0,
+                    "statusCode": 200,
+                    "label": "",
+                    "headers": [],
+                    "bodyType": "INLINE",
+                    "filePath": "",
+                    "databucketID": "",
+                    "sendFileAsBody": false,
+                    "rules": [],
+                    "rulesOperator": "OR",
+                    "disableTemplating": false,
+                    "fallbackTo404": false,
+                    "default": true,
+                    "crudKey": "id",
+                    "callbacks": []
+                }
+            ],
+            "responseMode": null,
+            "streamingMode": null,
+            "streamingInterval": 0
+        }
+    ],
+    "rootChildren": [
+        {
+            "type": "route",
+            "uuid": "80fb88ad-7c55-4ff1-878d-1d93de2800c5"
+        },
+        {
+            "type": "route",
+            "uuid": "cd6235d6-ffbe-4f8d-89e8-87fc372808fc"
+        }
+    ],
+    "proxyMode": false,
+    "proxyHost": "",
+    "proxyRemovePrefix": false,
+    "tlsOptions": {
+        "enabled": false,
+        "type": "CERT",
+        "pfxPath": "",
+        "certPath": "",
+        "keyPath": "",
+        "caPath": "",
+        "passphrase": ""
+    },
+    "cors": true,
+    "headers": [
+        {
+            "key": "Content-Type",
+            "value": "application/json"
+        },
+        {
+            "key": "Access-Control-Allow-Origin",
+            "value": "*"
+        },
+        {
+            "key": "Access-Control-Allow-Methods",
+            "value": "GET,POST,PUT,PATCH,DELETE,HEAD,OPTIONS"
+        },
+        {
+            "key": "Access-Control-Allow-Headers",
+            "value": "Content-Type, Origin, Accept, Authorization, Content-Length, X-Requested-With"
+        }
+    ],
+    "proxyReqHeaders": [
+        {
+            "key": "",
+            "value": ""
+        }
+    ],
+    "proxyResHeaders": [
+        {
+            "key": "",
+            "value": ""
+        }
+    ],
+    "data": [],
+    "callbacks": [
+        {
+            "uuid": "3b2f003c-5c7b-40db-bf21-6e665fcfb094",
+            "id": "tdqp",
+            "uri": "{{body '$.notification_url'}}",
+            "name": "Fiap Tech Challenge Callback",
+            "documentation": "",
+            "method": "post",
+            "headers": [],
+            "bodyType": "INLINE",
+            "body": "{\n  \"resource\": \"{{body '$.external_reference'}}\",\n  \"topic\": \"{{body '$.title'}}\"\n}",
+            "databucketID": "30pe",
+            "filePath": "",
+            "sendFileAsBody": true
+        }
+    ]
+}

@@ -1,0 +1,7 @@
+[run]
+source = engine/app
+relative_files = true
+
+[report]
+show_missing = True
+skip_covered = True
