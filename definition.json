@@ -4,7 +4,7 @@
     "name": "MercadoPago",
     "endpointPrefix": "mercadopago",
     "latency": 0,
-    "port": 3001,
+    "port": 3005,
     "hostname": "",
     "folders": [],
     "routes": [

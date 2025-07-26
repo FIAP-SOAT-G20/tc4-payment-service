@@ -22,7 +22,7 @@ jobs:
       DYNAMODB_ENDPOINT: http://192.168.0.16:8000
       ENVIRONMENT: testing
       FLASK_APP: app
-      MERCADO_PAGO_URL: http://192.168.0.16:3001/mercado_pago
+      MERCADO_PAGO_URL: http://192.168.0.16:3005/mercado_pago
       SECRET_KEY: abcdeABCDE123456
 
     steps:

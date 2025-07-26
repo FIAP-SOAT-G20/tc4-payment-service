@@ -5,7 +5,7 @@ import os
 class MercadoPagoService:
 
     def __init__(self):
-        self.base_url = os.getenv("MERCADO_PAGO_URL", "http://localhost:3001/mercadopago/instore/orders/qr")
+        self.base_url = os.getenv("MERCADO_PAGO_URL", "http://localhost:3005/mercadopago/instore/orders/qr")
 
     def get_qr_code(self, order_id, title, callback_url):
         payload = {
