@@ -19,7 +19,8 @@ class SNSService:
                     'sns',
                     region_name=region,
                     aws_access_key_id=environment.get('AWS_ACCESS_KEY_ID'),
-                    aws_secret_access_key=environment.get('AWS_SECRET_ACCESS_KEY')
+                    aws_secret_access_key=environment.get('AWS_SECRET_ACCESS_KEY'),
+                    aws_session_token=environment.get('AWS_SESSION_TOKEN')
                 )
 
             log.info("SNS client created successfully.")
