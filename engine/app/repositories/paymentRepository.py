@@ -30,8 +30,9 @@ class PaymentRepository:
 
     def get_payment(self, payment_entity, identifier):
         try:
+            identifier = str(identifier)
             payment_model = PaymentModel.get(identifier)
-        except DoesNotExist:
+        except DoesNotExist and Exception:
             log.info(f"Payment id #{identifier} not found, trying with order_id...")
             try:
                 payment_model = next(PaymentModel.scan(PaymentModel.order_id == identifier))

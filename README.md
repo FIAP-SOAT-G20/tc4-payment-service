@@ -4,7 +4,7 @@
     <img src="https://img.shields.io/badge/plataform-docker-orange">
     <img src="https://img.shields.io/badge/version-1.0.0-orange">
     <img src="https://img.shields.io/badge/python-3.12.x-orange">
-    <img src="https://img.shields.io/badge/coverage-86%25-orange">
+    <img src="https://img.shields.io/badge/coverage-85%25-orange">
 </p>
 
 ## Introduction
@@ -130,6 +130,10 @@ These services are injected into use cases, so the business logic is not tightly
 │   │   ├───test_services
 ```
 
+## Coverage
+
+The full coverage report can be found [here](https://github.com/FIAP-SOAT-G20/tc4-payment-service/tree/python-coverage-comment-action-data)
+
 
 ## How to work on the application
 
@@ -186,3 +190,10 @@ It should be like this:
 - script path: **tc4-payment-service/engine/tests**
 
 ![tests configs](docs/tests-configs.png)
+
+
+### BDD test configuration
+
+- Features path: **tc4-payment-service/engine/tests/bdd/features**
+
+![tests configs](docs/bdd-test-configs.png)

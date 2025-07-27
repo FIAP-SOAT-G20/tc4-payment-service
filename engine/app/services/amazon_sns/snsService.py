@@ -29,6 +29,7 @@ class SNSService:
 
     def get_or_create_topic(self, topic_name):
         try:
+            # return "arn:aws:sns:us-east-1:829401394278:payment-approved"
             response = self.client.create_topic(Name=topic_name)
             topic_arn = response['TopicArn']
             log.info(f"SNS Topic '{topic_name}' created/retrieved with ARN: {topic_arn}")
